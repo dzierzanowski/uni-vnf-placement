@@ -1,0 +1,31 @@
+{
+  "Topology": {
+    "Nodes": {
+      "S1": { "cost": 0 },
+      "S2": { "cost": 5 },
+      "S3": { "cost": 5 },
+      "S4": { "cost": 1 },
+      "S5": { "cost": 0 }
+    },
+    "Links": [
+      { "src": "S1", "dst": "S2", "cost": 15 },
+      { "src": "S1", "dst": "S3", "cost": 20 },
+      { "src": "S2", "dst": "S3", "cost": 10 },
+      { "src": "S2", "dst": "S4", "cost": 20 },
+      { "src": "S3", "dst": "S4", "cost": 20 },
+      { "src": "S4", "dst": "S5", "cost": 5  },
+      { "src": "S3", "dst": "S5", "cost": 10 }
+    ]
+  },
+  "Middleboxes": {
+    "Firewall": { "cost": 15, "locations": [ "S2", "S4" ] },
+    "IDS":      { "cost": 10, "locations": [] },
+    "Proxy":    { "cost": 10, "locations": [ "S2", "S4", "S3" ] },
+    "NAT":      { "cost": 8,  "locations": [ "S3", "S4" ] }
+  },
+  "TrafficRequest": {
+    "Source": "S1",
+    "Destination": "S5",
+    "VnfSequence": ["Firewall", "Proxy", "NAT"]
+  }
+}
